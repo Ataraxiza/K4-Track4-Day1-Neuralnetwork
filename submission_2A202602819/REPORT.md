@@ -92,6 +92,6 @@ Lớp 4 khó nhất (F1 = 0.7198); trong 1,899 mẫu thật lớp 4, có 606 m�
 
 **Khi loss không giảm:** ba kiểm tra đầu tiên là (1) xác nhận logits/nhãn đúng shape và nhãn thuộc 0..6, rồi xem step-0 loss có gần ln(7) không; (2) thử overfit một batch nhỏ với dropout tắt, vì nếu không thể giảm loss gần 0 thì thường có lỗi dữ liệu hoặc vòng lặp; (3) gọi backward và kiểm tra gradient từng tham số khác `None`/0, đồng thời xác nhận đã `zero_grad` và optimizer đang giữ đúng tham số. Sau đó mới dùng train/val loss và grad norm để phân biệt chưa học, overfit hay gradient bất thường.
 
-## 6. Hạn chế và điều rút ra
+## 6. Hạn chế và điều rút ra 
 
 Mỗi thí nghiệm Part 3 chỉ có một seed, nên dù chênh lệch macro-F1 vượt 2σ baseline, nên xem đây là bằng chứng ban đầu chứ chưa phải kết luận ổn định qua nhiều seed. Chỉ thử ba trong bảy chủ đề; chưa khảo sát optimizer, clipping, mixed precision hay loss. Tên GPU và phiên bản PyTorch không có trong artifact đã lưu. Các nhầm lẫn giữa lớp gợi ý khả năng đặc trưng chồng lấn nhưng chưa được kiểm chứng bằng phân tích feature. Nếu có thêm thời gian, nên lặp lại các cấu hình có triển vọng trên nhiều seed và phân tích đặc trưng của lớp 4/5 trước khi chọn hướng cải thiện.
