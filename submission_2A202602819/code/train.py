@@ -11,6 +11,8 @@ import time
 import random
 import numpy as np
 import torch
+import os
+import csv
 import torch.nn.functional as F
 
 from data import iterate_batches
@@ -22,7 +24,7 @@ DEFAULT_CFG = dict(
     exp_id="base-s1", group="baseline", description="Baseline M-base",
     loss="ce",                 # "ce" | "mse"
     optimizer="sgd_momentum",  # "sgd" | "sgd_momentum" | "adam" | "adamw"
-    lr=None,                   # TODO: chọn bằng val, không dùng eval
+    lr=None,                   
     weight_decay=0.0, momentum=0.9,
     batch=512, epochs=20,
     hidden=(256, 128), dropout=0.0, init="he",

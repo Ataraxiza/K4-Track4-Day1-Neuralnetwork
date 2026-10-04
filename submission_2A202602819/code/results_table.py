@@ -14,6 +14,25 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
+
+
+DATA_COLUMNS = [
+    "exp_id", "group", "description", "loss", "optimizer", "lr",
+    "weight_decay", "batch", "epochs", "hidden", "dropout",
+    "clip_norm", "precision", "init", "seed", "step0_loss",
+    "best_val_loss", "best_epoch", "final_train_loss",
+    "final_val_loss", "val_acc", "val_macro_f1",
+    "time_per_epoch_s", "peak_mem_MB", "diverged",
+    "eval_acc", "eval_macro_f1", "figure_file", "notes",
+]
+
+FORMULA_COLUMNS = [
+    "step0_gap_vs_lnC",
+    "gap_val_minus_train",
+    "delta_val_f1_vs_base",
+    "beyond_noise",
+]
 
 
 def save_result(result: dict, results_dir: str = "../results") -> str:
@@ -271,6 +290,9 @@ def write_xlsx(rows: list[dict], template_path: str, out_path: str) -> None:
             # that aren't part of the template.
             if key not in headers:
                 continue
+
+            if isinstance(value, (tuple, list)):
+                            value = str(value)
 
             column_index = headers[key]
             ws.cell(
